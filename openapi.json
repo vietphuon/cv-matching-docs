@@ -65,6 +65,12 @@
           "summary": "Health Check V1",
           "description": "Performs a health check and returns a JSON response indicating the service is healthy.",
           "operationId": "health_check_v1_agent_cv_matching_model_v1_health_get",
+          "servers": [
+            {
+                "url": "https://api.specific-server.com/v1",
+                "description": "Specific server for listing items"
+            }
+          ],
           "responses": {
             "200": {
               "description": "Successful Response",
