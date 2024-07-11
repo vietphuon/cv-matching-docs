@@ -1,1 +1,718 @@
-{"openapi":"3.1.0","info":{"title":"CV Matching API with LlamaIndex Integration","description":"This API provides endpoints for processing CVs (resumes) and matching them against job descriptions and criteria. It leverages LlamaIndex's interfaces for a modular approach","version":"3.0.3"},"paths":{"/agent/cv-matching-model/docs":{"get":{"tags":["Swaggers"],"summary":"Custom Swagger Ui Html","description":"Must included this to fix the openapi error of FastAPI","operationId":"custom_swagger_ui_html_agent_cv_matching_model_docs_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/agent/cv-matching-model/openapi.json":{"get":{"tags":["Swaggers"],"summary":"Get Open Api Endpoint","description":"Must included this to fix the openapi error of FastAPI","operationId":"get_open_api_endpoint_agent_cv_matching_model_openapi_json_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/agent/cv-matching-model/v1/health":{"get":{"tags":["v1","Health Check"],"summary":"Health Check V1","description":"Performs a health check and returns a JSON response indicating the service is healthy.","operationId":"health_check_v1_agent_cv_matching_model_v1_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HealthCheckResponseModel"}}}}}}},"/agent/cv-matching-model/v1/run":{"post":{"tags":["v1","CV Matching"],"summary":"Cv Matching V1","description":"This endpoint performs CV matching using a pre-trained large language model (LLM).\nAccess using API Controller from Rockship.\n\n**Parameters:**\n\n- **file_url (str):** The URL of the CV stored in AWS S3, in PDF format.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- `HTTPException` (status_code=415): If the file at the provided URL is not a PDF.","operationId":"cv_matching_v1_agent_cv_matching_model_v1_run_post","requestBody":{"content":{"application/x-www-form-urlencoded":{"schema":{"$ref":"#/components/schemas/Body_cv_matching_v1_agent_cv_matching_model_v1_run_post"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WorkflowResponseModel"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/agent/cv-matching-model/v2/health":{"get":{"tags":["v2","Health Check"],"summary":"Health Check V2","description":"Performs a health check and returns a JSON response indicating the service is healthy.","operationId":"health_check_v2_agent_cv_matching_model_v2_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HealthCheckResponseModel"}}}}}}},"/agent/cv-matching-model/v2/run":{"post":{"tags":["v2","CV Matching"],"summary":"Cv Matching V2","description":"This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.","operationId":"cv_matching_v2_agent_cv_matching_model_v2_run_post","requestBody":{"content":{"multipart/form-data":{"schema":{"$ref":"#/components/schemas/Body_cv_matching_v2_agent_cv_matching_model_v2_run_post"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WorkflowResponseModel"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/agent/cv-matching-model/v3/health":{"get":{"tags":["v3","Health Check"],"summary":"Health Check V3","description":"Performs a health check and returns a JSON response indicating the service is healthy.","operationId":"health_check_v3_agent_cv_matching_model_v3_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HealthCheckResponseModel"}}}}}}},"/agent/cv-matching-model/v3/run":{"post":{"tags":["v3","CV Matching"],"summary":"Cv Matching V3","description":"This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.","operationId":"cv_matching_v3_agent_cv_matching_model_v3_run_post","requestBody":{"content":{"multipart/form-data":{"schema":{"$ref":"#/components/schemas/Body_cv_matching_v3_agent_cv_matching_model_v3_run_post"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WorkflowResponseModel"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/agent/cv-matching-model/v3/rank":{"post":{"tags":["v3","CV Ranking"],"summary":"Cv Matching V3 Rank","description":"This endpoint performs CV ranking using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.","operationId":"cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post","requestBody":{"content":{"multipart/form-data":{"schema":{"$ref":"#/components/schemas/Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/agent/cv-matching-model/staffing/v1/health":{"get":{"tags":["Staff v1","Health Check"],"summary":"Health Check Staffing","description":"Performs a health check and returns a JSON response indicating the service is healthy.","operationId":"health_check_staffing_agent_cv_matching_model_staffing_v1_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HealthCheckResponseModel"}}}}}}},"/agent/cv-matching-model/staffing/v1/run":{"post":{"tags":["Staff v1","CV Matching"],"summary":"Cv Matching Staffing V1","description":"This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.","operationId":"cv_matching_staffing_v1_agent_cv_matching_model_staffing_v1_run_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/InputData"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WorkflowResponseModel"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}}},"components":{"schemas":{"Body_cv_matching_v1_agent_cv_matching_model_v1_run_post":{"properties":{"file_url":{"type":"string","title":"File Url"},"job_description":{"type":"string","title":"Job Description"},"criteria":{"type":"string","title":"Criteria"}},"type":"object","required":["file_url","job_description","criteria"],"title":"Body_cv_matching_v1_agent_cv_matching_model_v1_run_post"},"Body_cv_matching_v2_agent_cv_matching_model_v2_run_post":{"properties":{"file":{"type":"string","format":"binary","title":"File"},"job_description":{"type":"string","title":"Job Description"},"criteria":{"type":"string","title":"Criteria"}},"type":"object","required":["file","job_description","criteria"],"title":"Body_cv_matching_v2_agent_cv_matching_model_v2_run_post"},"Body_cv_matching_v3_agent_cv_matching_model_v3_run_post":{"properties":{"file":{"type":"string","format":"binary","title":"File"},"job_description":{"type":"string","title":"Job Description"}},"type":"object","required":["file","job_description"],"title":"Body_cv_matching_v3_agent_cv_matching_model_v3_run_post"},"Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post":{"properties":{"file":{"type":"string","format":"binary","title":"File"},"job_description":{"type":"string","title":"Job Description"}},"type":"object","required":["file","job_description"],"title":"Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post"},"Data":{"properties":{"overall_reasoning":{"type":"string","title":"Overall Reasoning","description":"The reasoning behind the overall decision"},"overall_strengths":{"type":"string","title":"Overall Strengths","description":"The overall strengths of the candidate's resume"},"overall_decision":{"type":"boolean","title":"Overall Decision","description":"The overall decision made based on the criteria"},"overall_suggestion":{"allOf":[{"$ref":"#/components/schemas/OverallSuggestion"}],"description":"The overall suggestion for improvement for the candidate based on background building for the candidate only"},"topic_suggestion":{"type":"string","title":"Topic Suggestion","description":"The topic that the candidate is most interested in based on the list of topics provided"}},"type":"object","required":["overall_reasoning","overall_strengths","overall_decision","overall_suggestion","topic_suggestion"],"title":"Data"},"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"HealthCheckResponseModel":{"properties":{"status":{"type":"string","title":"Status code","description":"The status code of the response. Can be 'success', 'fail' or 'error'.","examples":["success","fail","error"]},"data":{"type":"object","title":"Health status","description":"The health status of the service. Can be 'good' or 'bad'.","examples":[{"health":"good"}]}},"type":"object","required":["status","data"],"title":"HealthCheckResponseModel","description":"Data model for health check response"},"InputData":{"properties":{"parsed_file_content":{"type":"string","title":"Parsed File Content"},"job_description":{"type":"string","title":"Job Description"}},"type":"object","required":["parsed_file_content","job_description"],"title":"InputData","description":"Data model for staffing POST request"},"OverallSuggestion":{"properties":{"overall":{"type":"string","title":"Overall","description":"Overall suggestion for the candidate"},"technical_skills":{"items":{"type":"string"},"type":"array","title":"Technical Skills","description":"The feedback on the candidate's technical skills (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"},"experience_projects":{"items":{"type":"string"},"type":"array","title":"Experience Projects","description":"The feedback on the candidate's experience and projects (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"},"soft_skills":{"items":{"type":"string"},"type":"array","title":"Soft Skills","description":"The feedback on the candidate's soft skills and other desirable qualities (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"},"domain_expertise":{"items":{"type":"string"},"type":"array","title":"Domain Expertise","description":"The feedback on the candidate's domain expertise (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"},"education_qualifications":{"items":{"type":"string"},"type":"array","title":"Education Qualifications","description":"The feedback on the candidate's education and qualifications (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"},"other_qualities":{"items":{"type":"string"},"type":"array","title":"Other Qualities","description":"The feedback on candidate's resume quality including presentation and delivery (their strength and weakness). Provide improvement tips for the weakness if applicable. There should be a list and every advice (summary, grammar, power verbs) should be seperated, do not write everything in 1 element"}},"type":"object","required":["overall","technical_skills","experience_projects","soft_skills","domain_expertise","education_qualifications","other_qualities"],"title":"OverallSuggestion"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"WorkflowResponseModel":{"properties":{"status":{"type":"string","title":"Status code","description":"The status code of the response. Can be 'success', 'fail' or 'error'.","examples":["success","fail","error"]},"data":{"allOf":[{"$ref":"#/components/schemas/Data"}],"title":"Agentic workflow response","description":"The response from the agentic workflow.","examples":[{"overall_decision":false,"overall_reasoning":"The candidate does not meet the specific requirements for the Data Analyst Intern role, particularly in terms of relevant technical skills, experience in data analysis, and soft skills. The resume lacks evidence of proficiency in SQL, Python or R, and data visualization tools, as well as relevant project experience.","overall_strengths":"The candidate has a solid technical background in backend development and experience with various programming languages.","overall_suggestion":{"domain_expertise":["The candidate does not have demonstrated experience or expertise in data analysis, which is essential for the role."],"education_qualifications":["The candidate is an undergraduate from HCMC University of Technology, which is a relevant qualification. However, there is no mention of enrollment in a program related to Computer Science, Statistics, Mathematics, or a related field."],"experience_projects":["The candidate has worked as a Backend Developer at Rockship, but the projects listed (e.g., 'Project abcs') are not relevant to data analysis. The experience does not align with the responsibilities of data collection, cleaning, analysis, and visualization."],"other_qualities":["The resume lacks certifications or courses related to data analysis, which could strengthen the application."],"overall":"To improve the resume, the candidate should gain experience in data analysis, including proficiency in SQL and a programming language like Python or R. They should also work on relevant projects that involve data collection, cleaning, analysis, and visualization. Additionally, highlighting soft skills and obtaining certifications in data analysis would be beneficial.","soft_skills":["The resume does not provide information on soft skills such as communication, problem-solving, and teamwork, which are crucial for the role of a Data Analyst Intern."],"technical_skills":["The candidate has experience with MySQL, JavaScript, NodeJS, and Golang. However, the job requires proficiency in SQL and at least one programming language like Python or R, which are not mentioned in the resume."]},"topic_suggestion":"Education HR & Career"}]}},"type":"object","required":["status","data"],"title":"WorkflowResponseModel","description":"Data model for chat model response"}}}}
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "CV Matching API with LlamaIndex Integration",
+      "description": "This API provides endpoints for processing CVs (resumes) and matching them against job descriptions and criteria. It leverages LlamaIndex's interfaces for a modular approach",
+      "version": "3.0.3"
+    },
+    "servers": [
+      {
+        "url": "http://0.0.0.0:8080",
+        "description": "Production server"
+      },
+      {
+        "url": "https://aiverse.rockitflow.com",
+        "description": "Production server"
+      }
+    ],
+    "paths": {
+      "/agent/cv-matching-model/docs": {
+        "get": {
+          "tags": [
+            "Swaggers"
+          ],
+          "summary": "Custom Swagger Ui Html",
+          "description": "Must included this to fix the openapi error of FastAPI",
+          "operationId": "custom_swagger_ui_html_agent_cv_matching_model_docs_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/openapi.json": {
+        "get": {
+          "tags": [
+            "Swaggers"
+          ],
+          "summary": "Get Open Api Endpoint",
+          "description": "Must included this to fix the openapi error of FastAPI",
+          "operationId": "get_open_api_endpoint_agent_cv_matching_model_openapi_json_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v1/health": {
+        "get": {
+          "tags": [
+            "v1",
+            "Health Check"
+          ],
+          "summary": "Health Check V1",
+          "description": "Performs a health check and returns a JSON response indicating the service is healthy.",
+          "operationId": "health_check_v1_agent_cv_matching_model_v1_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthCheckResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v1/run": {
+        "post": {
+          "tags": [
+            "v1",
+            "CV Matching"
+          ],
+          "summary": "Cv Matching V1",
+          "description": "This endpoint performs CV matching using a pre-trained large language model (LLM).\nAccess using API Controller from Rockship.\n\n**Parameters:**\n\n- **file_url (str):** The URL of the CV stored in AWS S3, in PDF format.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- `HTTPException` (status_code=415): If the file at the provided URL is not a PDF.",
+          "operationId": "cv_matching_v1_agent_cv_matching_model_v1_run_post",
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_cv_matching_v1_agent_cv_matching_model_v1_run_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WorkflowResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v2/health": {
+        "get": {
+          "tags": [
+            "v2",
+            "Health Check"
+          ],
+          "summary": "Health Check V2",
+          "description": "Performs a health check and returns a JSON response indicating the service is healthy.",
+          "operationId": "health_check_v2_agent_cv_matching_model_v2_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthCheckResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v2/run": {
+        "post": {
+          "tags": [
+            "v2",
+            "CV Matching"
+          ],
+          "summary": "Cv Matching V2",
+          "description": "This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.",
+          "operationId": "cv_matching_v2_agent_cv_matching_model_v2_run_post",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_cv_matching_v2_agent_cv_matching_model_v2_run_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WorkflowResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v3/health": {
+        "get": {
+          "tags": [
+            "v3",
+            "Health Check"
+          ],
+          "summary": "Health Check V3",
+          "description": "Performs a health check and returns a JSON response indicating the service is healthy.",
+          "operationId": "health_check_v3_agent_cv_matching_model_v3_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthCheckResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v3/run": {
+        "post": {
+          "tags": [
+            "v3",
+            "CV Matching"
+          ],
+          "summary": "Cv Matching V3",
+          "description": "This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.",
+          "operationId": "cv_matching_v3_agent_cv_matching_model_v3_run_post",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_cv_matching_v3_agent_cv_matching_model_v3_run_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WorkflowResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/v3/rank": {
+        "post": {
+          "tags": [
+            "v3",
+            "CV Ranking"
+          ],
+          "summary": "Cv Matching V3 Rank",
+          "description": "This endpoint performs CV ranking using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.",
+          "operationId": "cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/staffing/v1/health": {
+        "get": {
+          "tags": [
+            "Staff v1",
+            "Health Check"
+          ],
+          "summary": "Health Check Staffing",
+          "description": "Performs a health check and returns a JSON response indicating the service is healthy.",
+          "operationId": "health_check_staffing_agent_cv_matching_model_staffing_v1_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthCheckResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/agent/cv-matching-model/staffing/v1/run": {
+        "post": {
+          "tags": [
+            "Staff v1",
+            "CV Matching"
+          ],
+          "summary": "Cv Matching Staffing V1",
+          "description": "This endpoint performs CV matching using a pre-trained large language model (LLM).\n\n**Parameters:**\n\n- **file (UploadFile):** The CV to be matched against the job description and criteria.\n  - Supported file type: PDF only.\n- **job_description (str):** The job description text.\n- **criteria (str):** The desired criteria for the job, separated by newlines.\n  - Empty lines and lines starting with a hyphen (-) are ignored.\n\n**Returns:**\n\nA JSON response containing the CV matching results:\n\n- **criteria_decisions (list):** A list of dictionaries, each containing:\n    - reasoning (str): The reasoning behind the decision for each criterion.\n    - decision (str): The decision (match/no match) for each criterion.\n- **overall_reasoning (str):** The overall reasoning for the final decision.\n- **overall_decision (str):** The final decision (match/no match) based on all criteria.\n\n**Raises:**\n\n- HTTPException (status_code=415): If the uploaded file is not a PDF.",
+          "operationId": "cv_matching_staffing_v1_agent_cv_matching_model_staffing_v1_run_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InputData"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WorkflowResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Body_cv_matching_v1_agent_cv_matching_model_v1_run_post": {
+          "properties": {
+            "file_url": {
+              "type": "string",
+              "title": "File Url"
+            },
+            "job_description": {
+              "type": "string",
+              "title": "Job Description"
+            },
+            "criteria": {
+              "type": "string",
+              "title": "Criteria"
+            }
+          },
+          "type": "object",
+          "required": [
+            "file_url",
+            "job_description",
+            "criteria"
+          ],
+          "title": "Body_cv_matching_v1_agent_cv_matching_model_v1_run_post"
+        },
+        "Body_cv_matching_v2_agent_cv_matching_model_v2_run_post": {
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File"
+            },
+            "job_description": {
+              "type": "string",
+              "title": "Job Description"
+            },
+            "criteria": {
+              "type": "string",
+              "title": "Criteria"
+            }
+          },
+          "type": "object",
+          "required": [
+            "file",
+            "job_description",
+            "criteria"
+          ],
+          "title": "Body_cv_matching_v2_agent_cv_matching_model_v2_run_post"
+        },
+        "Body_cv_matching_v3_agent_cv_matching_model_v3_run_post": {
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File"
+            },
+            "job_description": {
+              "type": "string",
+              "title": "Job Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "file",
+            "job_description"
+          ],
+          "title": "Body_cv_matching_v3_agent_cv_matching_model_v3_run_post"
+        },
+        "Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post": {
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File"
+            },
+            "job_description": {
+              "type": "string",
+              "title": "Job Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "file",
+            "job_description"
+          ],
+          "title": "Body_cv_matching_v3_rank_agent_cv_matching_model_v3_rank_post"
+        },
+        "Data": {
+          "properties": {
+            "overall_reasoning": {
+              "type": "string",
+              "title": "Overall Reasoning",
+              "description": "The reasoning behind the overall decision"
+            },
+            "overall_strengths": {
+              "type": "string",
+              "title": "Overall Strengths",
+              "description": "The overall strengths of the candidate's resume"
+            },
+            "overall_decision": {
+              "type": "boolean",
+              "title": "Overall Decision",
+              "description": "The overall decision made based on the criteria"
+            },
+            "overall_suggestion": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/OverallSuggestion"
+                }
+              ],
+              "description": "The overall suggestion for improvement for the candidate based on background building for the candidate only"
+            },
+            "topic_suggestion": {
+              "type": "string",
+              "title": "Topic Suggestion",
+              "description": "The topic that the candidate is most interested in based on the list of topics provided"
+            }
+          },
+          "type": "object",
+          "required": [
+            "overall_reasoning",
+            "overall_strengths",
+            "overall_decision",
+            "overall_suggestion",
+            "topic_suggestion"
+          ],
+          "title": "Data"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "HealthCheckResponseModel": {
+          "properties": {
+            "status": {
+              "type": "string",
+              "title": "Status code",
+              "description": "The status code of the response. Can be 'success', 'fail' or 'error'.",
+              "examples": [
+                "success",
+                "fail",
+                "error"
+              ]
+            },
+            "data": {
+              "type": "object",
+              "title": "Health status",
+              "description": "The health status of the service. Can be 'good' or 'bad'.",
+              "examples": [
+                {
+                  "health": "good"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "required": [
+            "status",
+            "data"
+          ],
+          "title": "HealthCheckResponseModel",
+          "description": "Data model for health check response"
+        },
+        "InputData": {
+          "properties": {
+            "parsed_file_content": {
+              "type": "string",
+              "title": "Parsed File Content"
+            },
+            "job_description": {
+              "type": "string",
+              "title": "Job Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "parsed_file_content",
+            "job_description"
+          ],
+          "title": "InputData",
+          "description": "Data model for staffing POST request"
+        },
+        "OverallSuggestion": {
+          "properties": {
+            "overall": {
+              "type": "string",
+              "title": "Overall",
+              "description": "Overall suggestion for the candidate"
+            },
+            "technical_skills": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Technical Skills",
+              "description": "The feedback on the candidate's technical skills (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"
+            },
+            "experience_projects": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Experience Projects",
+              "description": "The feedback on the candidate's experience and projects (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"
+            },
+            "soft_skills": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Soft Skills",
+              "description": "The feedback on the candidate's soft skills and other desirable qualities (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"
+            },
+            "domain_expertise": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Domain Expertise",
+              "description": "The feedback on the candidate's domain expertise (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"
+            },
+            "education_qualifications": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Education Qualifications",
+              "description": "The feedback on the candidate's education and qualifications (their strength and weakness). Provide improvement tips if applicable. There should be a list and each different aspect should be an element, do not write everything in 1 element"
+            },
+            "other_qualities": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Other Qualities",
+              "description": "The feedback on candidate's resume quality including presentation and delivery (their strength and weakness). Provide improvement tips for the weakness if applicable. There should be a list and every advice (summary, grammar, power verbs) should be seperated, do not write everything in 1 element"
+            }
+          },
+          "type": "object",
+          "required": [
+            "overall",
+            "technical_skills",
+            "experience_projects",
+            "soft_skills",
+            "domain_expertise",
+            "education_qualifications",
+            "other_qualities"
+          ],
+          "title": "OverallSuggestion"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        },
+        "WorkflowResponseModel": {
+          "properties": {
+            "status": {
+              "type": "string",
+              "title": "Status code",
+              "description": "The status code of the response. Can be 'success', 'fail' or 'error'.",
+              "examples": [
+                "success",
+                "fail",
+                "error"
+              ]
+            },
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Data"
+                }
+              ],
+              "title": "Agentic workflow response",
+              "description": "The response from the agentic workflow.",
+              "examples": [
+                {
+                  "overall_decision": false,
+                  "overall_reasoning": "The candidate does not meet the specific requirements for the Data Analyst Intern role, particularly in terms of relevant technical skills, experience in data analysis, and soft skills. The resume lacks evidence of proficiency in SQL, Python or R, and data visualization tools, as well as relevant project experience.",
+                  "overall_strengths": "The candidate has a solid technical background in backend development and experience with various programming languages.",
+                  "overall_suggestion": {
+                    "domain_expertise": [
+                      "The candidate does not have demonstrated experience or expertise in data analysis, which is essential for the role."
+                    ],
+                    "education_qualifications": [
+                      "The candidate is an undergraduate from HCMC University of Technology, which is a relevant qualification. However, there is no mention of enrollment in a program related to Computer Science, Statistics, Mathematics, or a related field."
+                    ],
+                    "experience_projects": [
+                      "The candidate has worked as a Backend Developer at Rockship, but the projects listed (e.g., 'Project abcs') are not relevant to data analysis. The experience does not align with the responsibilities of data collection, cleaning, analysis, and visualization."
+                    ],
+                    "other_qualities": [
+                      "The resume lacks certifications or courses related to data analysis, which could strengthen the application."
+                    ],
+                    "overall": "To improve the resume, the candidate should gain experience in data analysis, including proficiency in SQL and a programming language like Python or R. They should also work on relevant projects that involve data collection, cleaning, analysis, and visualization. Additionally, highlighting soft skills and obtaining certifications in data analysis would be beneficial.",
+                    "soft_skills": [
+                      "The resume does not provide information on soft skills such as communication, problem-solving, and teamwork, which are crucial for the role of a Data Analyst Intern."
+                    ],
+                    "technical_skills": [
+                      "The candidate has experience with MySQL, JavaScript, NodeJS, and Golang. However, the job requires proficiency in SQL and at least one programming language like Python or R, which are not mentioned in the resume."
+                    ]
+                  },
+                  "topic_suggestion": "Education HR & Career"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "required": [
+            "status",
+            "data"
+          ],
+          "title": "WorkflowResponseModel",
+          "description": "Data model for chat model response"
+        }
+      }
+    }
+  }
